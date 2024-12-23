@@ -1,13 +1,17 @@
 package com.example.itlinktesttask.ui.gridScreen
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.itlinktesttask.databinding.FragmentGridImagesBinding
+import com.example.itlinktesttask.ui.gridScreen.adapter.GridImagesAdapter
+import com.example.itlinktesttask.utils.collectFlowWhenStarted
 import dagger.hilt.android.AndroidEntryPoint
+import java.math.RoundingMode
 
 
 @AndroidEntryPoint
@@ -26,6 +30,20 @@ class GridImages : Fragment() {
         _binding = FragmentGridImagesBinding.inflate(inflater,container, false)
         viewModel.getFile()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val adapter = GridImagesAdapter()
+
+        collectFlowWhenStarted(viewModel.images){ imageUrls ->
+            adapter.imageListUrls = imageUrls
+        }
+
+        val width = resources.displayMetrics.widthPixels / requireContext().resources.displayMetrics.density
+        val spanCount = (width/100).toBigDecimal().setScale(1,RoundingMode.DOWN).toInt()
+        binding.rvPreviewImages.setLayoutManager(GridLayoutManager(requireContext(), spanCount))
+
     }
 
 }
