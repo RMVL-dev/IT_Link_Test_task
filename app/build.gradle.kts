@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.serialization.plugin)
 }
 
 android {
@@ -45,4 +48,27 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    /**
+     * dagger hilt
+     */
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
+
+    /**
+     * Retrofit
+     */
+    implementation(libs.retrofit)
+
+    /**
+     * okhttp
+     */
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+
+    /**
+     * kotlinx-serialization
+     */
+    implementation(libs.kotlinx.serialization)
+    implementation(libs.kotlinx.serialization.converter)
 }
