@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.serialization.plugin)
+    id(libs.plugins.navigation.safe.args.plugin.get().pluginId)
 }
 
 android {
@@ -64,6 +65,16 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    /**
+     * navigation
+     */
+    implementation(libs.navigation.ui)
+    implementation(libs.navigation.fragment)
+
+    /**
+     * fragment
+     */
+    implementation(libs.fragment)
 
     /**
      * dagger hilt
