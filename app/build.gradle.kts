@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.serialization.plugin)
-    id(libs.plugins.navigation.safe.args.plugin.get().pluginId)
 }
 
 android {

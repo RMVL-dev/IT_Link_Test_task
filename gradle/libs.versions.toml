@@ -47,7 +47,6 @@ logging-interceptor = {group = "com.squareup.okhttp3", name = "logging-intercept
 
 navigation-fragment = {group ="androidx.navigation", name = "navigation-fragment", version.ref = "navigation"}
 navigation-ui = {group = "androidx.navigation", name = "navigation-ui", version.ref = "navigation"}
-navigation-safe-args = {group = "androidx.navigation", name = "navigation-safe-args-gradle-plugin", version.ref = "navigation"}
 
 fragment = {group="androidx.fragment", name = "fragment-ktx", version.ref = "fragment"}
 
@@ -60,5 +59,4 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt"}
 serialization-plugin = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization-plugin"}
-navigation-safe-args-plugin = { id = "androidx.navigation.safeargs"}
 

@@ -11,6 +11,7 @@ class GridImagesAdapter(
 ): RecyclerView.Adapter<ImageHolder>() {
 
     var imageListUrls = emptyList<String>()
+    var click: (String) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder =
         ImageHolder(
@@ -25,7 +26,8 @@ class GridImagesAdapter(
 
     override fun onBindViewHolder(holder: ImageHolder, position: Int) {
         holder.bind(
-            imageUrl = imageListUrls[position]
+            imageUrl = imageListUrls[position],
+            click = click
         )
     }
 }

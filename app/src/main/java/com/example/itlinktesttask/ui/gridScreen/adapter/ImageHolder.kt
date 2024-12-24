@@ -19,7 +19,10 @@ class ImageHolder(
     private val context: Context
 ):RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(imageUrl:String){
+    fun bind(
+        imageUrl:String,
+        click: (String) -> Unit
+    ){
 
         val brokenImage =
             ResourcesCompat.getDrawable(context.resources,R.drawable.ic_broken_image, context.theme)
@@ -44,6 +47,10 @@ class ImageHolder(
             .load(imageUrl)
             .apply(options)
             .into(binding.ivImage)
+
+        binding.root.setOnClickListener {
+            click(imageUrl)
+        }
     }
 
 }
