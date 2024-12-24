@@ -66,6 +66,11 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     /**
+     * glide
+     */
+    implementation(libs.glide)
+
+    /**
      * navigation
      */
     implementation(libs.navigation.ui)

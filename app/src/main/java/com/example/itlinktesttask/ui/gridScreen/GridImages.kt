@@ -1,6 +1,7 @@
 package com.example.itlinktesttask.ui.gridScreen
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,13 +36,16 @@ class GridImages : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = GridImagesAdapter()
+        binding.rvPreviewImages.adapter = adapter
 
         collectFlowWhenStarted(viewModel.images){ imageUrls ->
             adapter.imageListUrls = imageUrls
+            adapter.notifyDataSetChanged()
         }
 
         val width = resources.displayMetrics.widthPixels / requireContext().resources.displayMetrics.density
         val spanCount = (width/100).toBigDecimal().setScale(1,RoundingMode.DOWN).toInt()
+        Log.d("SpanCount", "width - $width spanCount - $spanCount calculating ${(width/100).toBigDecimal()}")
         binding.rvPreviewImages.setLayoutManager(GridLayoutManager(requireContext(), spanCount))
 
     }
