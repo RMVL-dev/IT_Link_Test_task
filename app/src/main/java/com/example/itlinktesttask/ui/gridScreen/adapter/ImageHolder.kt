@@ -27,11 +27,6 @@ class ImageHolder(
         val placeHolder =
             ResourcesCompat.getDrawable(context.resources,R.drawable.ic_image_placeholder, context.theme)
 
-        //when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
-        //    Configuration.UI_MODE_NIGHT_YES -> {DrawableCompat.setTint(brokenImage, Color.WHITE)}
-        //    else -> {}
-        //}
-
         if (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) {
             brokenImage?.let { DrawableCompat.setTint(it, Color.WHITE) }
             placeHolder?.let { DrawableCompat.setTint(it, Color.WHITE) }
