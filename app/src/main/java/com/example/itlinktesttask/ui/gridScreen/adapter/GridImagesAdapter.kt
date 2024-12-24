@@ -1,11 +1,14 @@
 package com.example.itlinktesttask.ui.gridScreen.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.itlinktesttask.databinding.ImageItemViewHolderBinding
 
-class GridImagesAdapter: RecyclerView.Adapter<ImageHolder>() {
+class GridImagesAdapter(
+    private val context: Context
+): RecyclerView.Adapter<ImageHolder>() {
 
     var imageListUrls = emptyList<String>()
 
@@ -13,7 +16,8 @@ class GridImagesAdapter: RecyclerView.Adapter<ImageHolder>() {
         ImageHolder(
             binding = ImageItemViewHolderBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
-            )
+            ),
+            context = context
         )
 
     override fun getItemCount(): Int =

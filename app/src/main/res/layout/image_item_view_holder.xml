@@ -15,7 +15,6 @@
 
         android:contentDescription="@string/image_content_description"
 
-        android:scaleType="centerCrop"
         tools:src = "@mipmap/ic_launcher"
         />
 

@@ -35,7 +35,7 @@ class GridImages : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = GridImagesAdapter()
+        val adapter = GridImagesAdapter(context = requireContext())
         binding.rvPreviewImages.adapter = adapter
 
         collectFlowWhenStarted(viewModel.images){ imageUrls ->
