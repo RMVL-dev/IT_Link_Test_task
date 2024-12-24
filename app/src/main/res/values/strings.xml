@@ -2,4 +2,5 @@
     <string name="app_name">IT Link Test task</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="image_content_description">preview image</string>
+    <string name="bt_back">back</string>
 </resources>
