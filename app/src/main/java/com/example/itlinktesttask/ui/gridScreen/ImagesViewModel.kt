@@ -4,6 +4,7 @@ import android.os.Environment
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.itlinktesttask.data.ResponseState
 import com.example.itlinktesttask.domain.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -24,23 +25,35 @@ class ImagesViewModel @Inject constructor(
     private val repository: Repository
 ):ViewModel() {
 
-    private val _images = MutableStateFlow<List<String>>(emptyList())
+    private val _images = MutableStateFlow<ResponseState<List<String>>>(ResponseState.None())
     val images = _images.asStateFlow()
 
     fun getFile(){
         viewModelScope.launch(Dispatchers.IO) {
-            val responseBody = repository.retrieveFile().body()
-            val path = saveFile(
-                responseBody,
-                "${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)}/images.txt"
-            )
-
-            //read file
-            val bufferedReader: BufferedReader = File(path).bufferedReader()
-            val inputString = bufferedReader.use { it.readText() }
 
             _images.update {
-                inputString.split("\n")
+                ResponseState.Loading()
+            }
+
+            runCatching {
+                repository.retrieveFile().body()
+            }.onFailure {
+                it.printStackTrace()
+                _images.update {
+                    ResponseState.Error()
+                }
+            }.onSuccess { responseBody ->
+                val path = saveFile(
+                    responseBody,
+                    "${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)}/images.txt"
+                )
+                //read file
+                val bufferedReader: BufferedReader = File(path).bufferedReader()
+                val inputString = bufferedReader.use { it.readText() }
+
+                _images.update {
+                    ResponseState.Success(inputString.split("\n"))
+                }
             }
 
         }

@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.itlinktesttask.R
+import com.example.itlinktesttask.data.ResponseState
 import com.example.itlinktesttask.databinding.FragmentGridImagesBinding
 import com.example.itlinktesttask.ui.gridScreen.adapter.GridImagesAdapter
 import com.example.itlinktesttask.ui.imageScreen.ImageFragment
@@ -47,8 +49,26 @@ class GridImages : Fragment() {
         binding.rvPreviewImages.adapter = adapter
 
         collectFlowWhenStarted(viewModel.images){ imageUrls ->
-            adapter.imageListUrls = imageUrls
-            adapter.notifyDataSetChanged()
+            when(imageUrls){
+                is ResponseState.Error -> {
+                    binding.progressIndicator.isVisible = false
+                    binding.error.isVisible = true
+                }
+                is ResponseState.Loading -> {
+                    binding.progressIndicator.isVisible = true
+                    binding.error.isVisible = false
+                }
+                is ResponseState.None -> {
+                    binding.progressIndicator.isVisible = false
+                    binding.error.isVisible = false
+                }
+                is ResponseState.Success -> {
+                    binding.progressIndicator.isVisible = false
+                    binding.error.isVisible = false
+                    adapter.imageListUrls = imageUrls.data
+                    adapter.notifyDataSetChanged()
+                }
+            }
         }
 
         val width = resources.displayMetrics.widthPixels / requireContext().resources.displayMetrics.density
